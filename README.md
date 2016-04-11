@@ -12,7 +12,6 @@ This project is developed using grails & angularjs framework, and pushed to clou
 * Grails 3.1.4
 * sdkman
  
-
 ## Install
 
 1. Install sdkman `curl -s get.sdkman.io | bash`
