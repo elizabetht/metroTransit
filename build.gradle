@@ -14,6 +14,7 @@ buildscript {
         classpath "org.grails.plugins:hibernate4:5.0.2"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.7.4"
         classpath "org.grails.plugins:views-gradle:1.0.4"
+        classpath "org.cloudfoundry:cf-gradle-plugin:1.1.2"
     }
 }
 
@@ -29,6 +30,7 @@ apply plugin:"com.craigburke.karma"
 apply plugin:"com.craigburke.bower-installer"
 apply plugin:"asset-pipeline"
 apply plugin:"org.grails.plugins.views-json"
+apply plugin:"cloudfoundry"
 
 ext {
     grailsVersion = project.grailsVersion
@@ -121,4 +123,15 @@ karma {
 assets {
     minifyJs = true
     minifyCss = true
+}
+
+cloudfoundry {
+    target = "https://api.run.pivotal.io"
+    organization = "meygam"
+    space = "development"
+    file = file("build/libs/metroTransit-0.1.war")
+    memory = 1024
+    instances = 1
+    username = "saravana.kumar@meygam.io"
+    password = project.CF_PASSWORD
 }
