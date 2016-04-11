@@ -21,9 +21,9 @@
     </script>
 </head>
 
-<body ng-app="metrotransit" ng-controller="IndexController as vm">
+<body ng-app="metrotransit">
 
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="IndexController as vm">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" ng-click="navExpanded = !navExpanded">
@@ -33,9 +33,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/#">
-                    <i class="fa grails-icon">
-                        <asset:image src="grails-cupsonly-logo-white.svg"/>
-                    </i> Grails
+                    Metro Transit
                 </a>
             </div>
             <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;" uib-collapse="!navExpanded">
@@ -73,31 +71,77 @@
         </div>
     </div>
 
-    <div class="svg" role="presentation">
-        <div class="grails-logo-container">
-            <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
-        </div>
-    </div>
+    %{--<div class="svg" role="presentation">--}%
+        %{--<div class="grails-logo-container">--}%
+            %{--<asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>--}%
+        %{--</div>--}%
+    %{--</div>--}%
 
-    <div id="content" role="main">
+    <div id="content" role="main" ng-controller="RouteController as vm">
         <section class="row colset-2-its">
-            <h1>Welcome to Grails</h1>
+            <h1>Metro Transit Departure</h1>
 
-            <p>
-                Congratulations, you have successfully started your first Grails application! At the moment
-                this is the default page, feel free to modify it to either redirect to a controller or display
-                whatever content you may choose. Below is a list of controllers that are currently deployed in
-                this application, click on each to execute its default action:
-            </p>
-
-            <div id="controllers" role="navigation">
-                <h2>Available Controllers:</h2>
-                <ul ng-cloak>
-                    <li ng-repeat="c in vm.applicationData.controllers | orderBy:'name'" class="controller">
-                        <a ng-href="{{vm.contextPath}}/{{c.logicalPropertyName}}">{{c.name}}</a>
-                    </li>
-                </ul>
+            <div class="row colset-2-its">
+                <div class="col1" style="text-align: right">
+                    <span>Routes : </span>
+                </div>
+                <div class="col2" style="text-align: left">
+                    <select id="Route" ng-model="routeId" ng-change="vm.getDirections(routeId)">
+                        <option ng-repeat="route in vm.routes" value="{{route.Route}}">
+                            {{route.Description}}
+                        </option>
+                    </select>
+                </div>
             </div>
+
+            <div class="row colset-2-its">
+                <div class="col1" style="text-align: right">
+                    <span>Directions : </span>
+                </div>
+                <div class="col2" style="text-align: left">
+                    <select id="Direction" ng-model="directionId" ng-change="vm.getStops(routeId, directionId)">
+                        <option ng-repeat="direction in vm.directions" value="{{direction.Value}}">
+                            {{direction.Text}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row colset-2-its">
+                <div class="col1" style="text-align: right">
+                    <span>Stops : </span>
+                </div>
+                <div class="col2" style="text-align: left">
+                    <select id="Stop" ng-model="stopId" ng-change="vm.getDeparture(routeId, directionId, stopId)">
+                        <option ng-repeat="stop in vm.stops" value="{{stop.Value}}">
+                            {{stop.Text}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row colset-2-its">
+                <div class="col1" style="text-align: right">
+                    <span>Time for Arrival : </span>
+                </div>
+                <div class="col2" style="text-align: left">
+                    <span>{{vm.departures[0].DepartureText}}</span>
+                </div>
+            </div>
+
+            %{--<p>--}%
+                %{--Below is a list of controllers that are currently deployed in--}%
+                %{--this application, click on each to execute its default action:--}%
+            %{--</p>--}%
+
+            %{--<div id="controllers" role="navigation">--}%
+                %{--<h2>Available Controllers:</h2>--}%
+                %{--<ul ng-cloak>--}%
+                    %{--<li ng-repeat="c in vm.applicationData.controllers | orderBy:'name'" class="controller">--}%
+                        %{--<a ng-href="{{vm.contextPath}}/{{c.logicalPropertyName}}">{{c.name}}</a>--}%
+                    %{--</li>--}%
+                %{--</ul>--}%
+            %{--</div>--}%
         </section>
     </div>
 
