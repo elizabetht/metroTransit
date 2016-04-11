@@ -2,6 +2,8 @@
 
 This project uses Metro Transit's REST API (http://svc.metrotransit.org/) to tell you how long it is until the next bus on given route, direction & stop.
 
+[<img src="screenshot-1.png">](http://metrotransit.cfapps.io)
+
 This project is developed using grails & angularjs framework, and pushed to cloud-foundry @ http://metrotransit.cfapps.io, after every successful build from [Travis CI](https://travis-ci.org/saravanakumar-periyasamy/metroTransit).
 
 ## Requirements
